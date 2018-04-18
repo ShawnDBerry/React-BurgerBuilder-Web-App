@@ -63,6 +63,10 @@ class BurgerBuilder extends Component {
     closeModal = () => {
         this.setState({purchasing: false})
     }
+
+    ContinuePayment = () => {
+        alert('ENJOY YOUR BURGER!');
+    }
     RemoveIngredient = (type) => {
         const oldCount = this.state.ingredients[type];
         if (oldCount <= 0) {
@@ -92,7 +96,11 @@ class BurgerBuilder extends Component {
 
             <Aux>
                 <Modal show={this.state.purchasing} exitModal={this.closeModal}>
-                    <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
+                        cancelOrder={this.closeModal}
+                        ContinuePayment={this.ContinuePayment}
+                        price={this.state.totalPrice.toFixed(2)}></OrderSummary>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls
@@ -101,8 +109,7 @@ class BurgerBuilder extends Component {
                     disableIngredient={disabledInfo}
                     price={this.state.totalPrice}
                     purchaseable={this.state.purchaseable}
-                    ordered={this.purchaseHandler}
-                    />
+                    ordered={this.purchaseHandler}/>
 
             </Aux>
         );
